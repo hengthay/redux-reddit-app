@@ -4,8 +4,8 @@ import commentReducer  from "../features/commentReddit/commentSlice.js";
 
 const store = configureStore({
   reducer: {
-    post: postReducer,
-    comment: commentReducer
+    posts: postReducer,
+    comments: commentReducer
   }
 });
 
