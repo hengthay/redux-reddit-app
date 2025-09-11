@@ -7,13 +7,13 @@ const initialState = {
   error: null
 }
 
-export const fetchPosts = createAsyncThunk("posts", async () => {
+export const fetchPosts = createAsyncThunk("posts", async (subreddit = 'popular') => {
   try {
-    const response = await axios.get('https://www.reddit.com/r/popular.json');
+    const response = await axios.get(`https://www.reddit.com/r/${subreddit}.json`);
 
-    console.log(response.data);
+    // console.log(response.data);
 
-    return response.data;
+    return response.data.data.children;
   } catch (error) {
     console.log(error);
     throw new Error("Couldn't be fetch from the external source. (Please double check your spelling or maybe resource is not exist)");
@@ -51,5 +51,6 @@ const postSlice = createSlice({
 export default postSlice.reducer;
 
 export const selectPosts = state => state.posts.items;
+// export const selectPosts = state => state.posts;
 export const selectPostsStatus = state => state.posts.status;
 export const selectPostsError = state => state.posts.error;
