@@ -6,6 +6,8 @@ import {
   selectPostsStatus,
 } from "../features/postReddit/postSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import Header from "./Header.jsx";
+import Aside from "./Aside.jsx";
 
 const Post = () => {
   const posts = useSelector(selectPosts);
@@ -14,16 +16,16 @@ const Post = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchPosts());
-    }
-  }, [status, dispatch]);
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
   if (status === "loading") return <p className="text-center mt-6">Loading...</p>;
   if (status === "failed") return <p className="text-red-500">{error}</p>;
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {/* Header */}
+      <Header />
 
       {/* Main Layout */}
       <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -77,34 +79,7 @@ const Post = () => {
           </div>
         </main>
 
-        {/* Sidebar */}
-        <aside className="lg:col-span-4">
-          <div className="bg-white p-4 rounded-2xl shadow-md">
-            <h3 className="text-lg font-bold mb-3">Subreddits</h3>
-            <ul className="space-y-2 text-blue-600">
-              <li>
-                <a href="https://www.reddit.com/r/popular/" target="_blank" rel="noreferrer">
-                  r/popular
-                </a>
-              </li>
-              <li>
-                <a href="https://www.reddit.com/r/news/" target="_blank" rel="noreferrer">
-                  r/news
-                </a>
-              </li>
-              <li>
-                <a href="https://www.reddit.com/r/programming/" target="_blank" rel="noreferrer">
-                  r/programming
-                </a>
-              </li>
-              <li>
-                <a href="https://www.reddit.com/r/funny/" target="_blank" rel="noreferrer">
-                  r/funny
-                </a>
-              </li>
-            </ul>
-          </div>
-        </aside>
+        <Aside />
       </div>
     </div>
   );
