@@ -14,9 +14,10 @@ export const fetchPosts = createAsyncThunk("posts", async (subreddit = 'popular'
     // console.log(response.data);
 
     return response.data.data.children;
+    
   } catch (error) {
     console.log(error);
-    throw new Error("Couldn't be fetch from the external source. (Please double check your spelling or maybe resource is not exist)");
+    throw new Error("Failed to load posts or bad network");
   }
 })
 

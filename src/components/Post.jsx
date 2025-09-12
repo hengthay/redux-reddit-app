@@ -19,8 +19,26 @@ const Post = () => {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  if (status === "loading") return <p className="text-center mt-6">Loading...</p>;
-  if (status === "failed") return <p className="text-red-500">{error}</p>;
+  if (status === "loading") {
+    return <div>
+      <Header />
+      <div className="mt-10 space-y-3 text-center leading-relaxed">
+        <h3 className="text-slate-600 md:text-xl font-semibold">Loading...</h3>
+      </div>
+    </div>
+  }
+  if (status === "failed") {
+    return <div>
+      <Header />
+      <div className="mt-10 space-y-3 text-center leading-relaxed">
+        <h3 className="text-slate-600 md:text-xl font-semibold">{error}</h3>
+        <button 
+          onClick={() => dispatch(fetchPosts())}     className="bg-blue-400 px-6 py-2 rounded-md text-white font-semibold cursor-pointer">
+          Try again
+        </button>
+      </div>
+    </div>
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
